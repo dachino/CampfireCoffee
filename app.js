@@ -6,7 +6,8 @@ var pikePlaceMarket = {
   maxCustRate: 35,
   avgCup: 1.2,
   avgPnd: 0.34,
-  numCustHr: []
+  numCustHr: [],  //Number of customers for each hour
+  numCupHr: []  //Number of cups for each hour
 }
 
 function randomCustHr(store) {
@@ -15,9 +16,12 @@ function randomCustHr(store) {
   }
 }
 
-//   numCupHr: function() {
-//     return this.numCustHr() * this.avgCup;
-//   }
+function numCupHr(store) {
+  for (var i = 0; i < hours.length; i++) {
+    store.numCupHr[i] = store.numCustHr[i] * store.avgCup;
+  }
+}
+
 //   numCupTotal: function() {
 //     var total =
 //     for (var i = 0; i < array.length; i++) {
@@ -26,3 +30,6 @@ function randomCustHr(store) {
 //     return total;
 //   }
 // };
+
+randomCustHr(pikePlaceMarket);
+numCupHr(pikePlaceMarket);
