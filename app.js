@@ -5,18 +5,16 @@ var pikePlaceMarket = {
   minCustRate: 14,
   maxCustRate: 35,
   avgCup: 1.2,
-  avgPnd: 0.34
+  avgPnd: 0.34,
+  numCustHr: []
 }
 
-function randCustHr(store) {
-  return Math.floor(Math.random() * (store.maxCustRate - store.minCustRate) + store.minCustRate);
+function randomCustHr(store) {
+  for (var i = 0; i < hours.length; i++) {
+    store.numCustHr[i] = Math.floor(Math.random() * (store.maxCustRate - store.minCustRate) + store.minCustRate);
+  }
 }
 
-// function numCustHr() {
-//   for (var i = 0; i < this.hrsOpen; i++) {
-//     this.numCustHr[i] = randCustHr();
-//   }
-//
 //   numCupHr: function() {
 //     return this.numCustHr() * this.avgCup;
 //   }
