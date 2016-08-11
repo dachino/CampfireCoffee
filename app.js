@@ -53,6 +53,11 @@ var pikePlaceMarket = {
     for (var i = 0; i < hours.length; i++) {
       this.netPnd[i] = this.numPndHr[i] + this.numPndPerCup[i];
     }
+  },
+  totalNetPndCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.totalNetPnd += this.netPnd[i];
+    }
   }
 }
 
@@ -64,3 +69,4 @@ pikePlaceMarket.pndHr();
 pikePlaceMarket.totalPndCalc();
 pikePlaceMarket.PndPerCup();
 pikePlaceMarket.netPndCalc();
+pikePlaceMarket.totalNetPndCalc();
