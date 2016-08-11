@@ -10,6 +10,7 @@ var pikePlaceMarket = {
   numCupHr: [],  //Projected cups sold for each hour
   numPndHr: [],  //Projected pounds to-go sold for each hour
   numPndPerCup: [], //Projected pounds of beans used for cup for each hour
+  netPnd: [],   //Projected pounds of beans used for both for each hour
   totalCup: 0,  //Total cup sold
   totalPnd: 0,  //Total pounds to-go sold
   totalNetPnd: 0,  //Total pounds of beans sold altogether
@@ -48,6 +49,11 @@ var pikePlaceMarket = {
       this.numPndPerCup[i] = this.numCupHr[i] / 16;
     }
   },
+  netPndCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.netPnd[i] = this.numPndHr[i] + this.numPndPerCup[i];
+    }
+  }
 }
 
 
@@ -57,3 +63,4 @@ pikePlaceMarket.totalCupCalc();
 pikePlaceMarket.pndHr();
 pikePlaceMarket.totalPndCalc();
 pikePlaceMarket.PndPerCup();
+pikePlaceMarket.netPndCalc();
