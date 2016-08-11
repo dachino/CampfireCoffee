@@ -86,7 +86,7 @@ pikePlaceMarket.netPndCalc();
 pikePlaceMarket.totalNetPndCalc();
 pikePlaceMarket.totalCustCalc();
 pikePlaceMarket.numEmpCalc();
-console.log(pikePlaceMarket.numEmp);
+console.log("Number of employees needed for each hour:",pikePlaceMarket.numEmp);
 
 // Adding the Pike Place information to data.html
 var ulEl = document.getElementsByTagName('ul');
