@@ -15,6 +15,7 @@ var pikePlaceMarket = {
   totalPnd: 0,  //Total pounds to-go sold for the day
   totalNetPnd: 0,  //Total pounds of beans sold altogether for the day
   totalCust: 0, //Total number of customers for the day
+  numEmp: [],  //Number of employees needed for each hour
   randomCustHr: function() {
     for (var i = 0; i < hours.length; i++) {
       this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
@@ -62,6 +63,15 @@ var pikePlaceMarket = {
     for (var i = 0; i < hours.length; i++) {
       this.totalCust += this.numCustHr[i];
     }
+  },
+  numEmpCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      if ((this.numCustHr[i] / 30) >= 1) {
+        this.numEmp[i] = 2;
+      } else {
+        this.numEmp[i] = 1;
+      }
+    }
   }
 }
 
@@ -75,11 +85,14 @@ pikePlaceMarket.PndPerCup();
 pikePlaceMarket.netPndCalc();
 pikePlaceMarket.totalNetPndCalc();
 pikePlaceMarket.totalCustCalc();
+pikePlaceMarket.numEmpCalc();
+console.log(pikePlaceMarket.numEmp);
 
 // Adding the Pike Place information to data.html
-var sectionEl = document.getElementsByTagName('section');
-var ulEl = document.createElement('ul');
-ulEl.textContent = pikePlaceMarket.name;
-sectionEl[0].appendChild(ulEl);
-var ilEl = document.createElement('li');
-ilEl.textContent = '6:00am: 86.4 lbs [23 customers, 27.6 cups (1.4 lbs), 85 lbs to-go]';
+var ulEl = document.getElementsByTagName('ul');
+var ilEl =[];
+for (var i = 0; i < hours.length; i++) {
+  ilEl[i] = document.createElement('li');
+  ilEl[i].textContent = hours[i] + ': ' + pikePlaceMarket.netPnd[i] + 'lbs [' + pikePlaceMarket.numCustHr[i] + ' customers, ' + pikePlaceMarket.numCupHr[i] + ' cups (' + pikePlaceMarket.numPndPerCup[i] + ' lbs), ' + pikePlaceMarket.numPndHr[i] + ' lbs to-go]';
+  ulEl[0].appendChild(ilEl[i]);
+}
