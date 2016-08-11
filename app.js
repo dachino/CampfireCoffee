@@ -11,14 +11,10 @@ var pikePlaceMarket = {
   numPndHr: [],  //Projected pounds to-go sold for each hour
   numPndPerCup: [], //Projected pounds of beans used for cup for each hour
   netPnd: [],   //Projected pounds of beans used for both for each hour
-  totalCup: 0,  //Total cup sold
-  totalPnd: 0,  //Total pounds to-go sold
-  totalNetPnd: 0,  //Total pounds of beans sold altogether
-  randomCustHr: function() {
-    for (var i = 0; i < hours.length; i++) {
-      this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
-    }
-  },
+  totalCup: 0,  //Total cup sold for the day
+  totalPnd: 0,  //Total pounds to-go sold for the day
+  totalNetPnd: 0,  //Total pounds of beans sold altogether for the day
+  totalCust: 0, //Total number of customers for the day
   randomCustHr: function() {
     for (var i = 0; i < hours.length; i++) {
       this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
@@ -58,10 +54,15 @@ var pikePlaceMarket = {
     for (var i = 0; i < hours.length; i++) {
       this.totalNetPnd += this.netPnd[i];
     }
+  },
+  totalCustCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.totalCust += this.numCustHr[i];
+    }
   }
 }
 
-
+// Calling out all the methods for Pike Place Market object
 pikePlaceMarket.randomCustHr();
 pikePlaceMarket.cupHr();
 pikePlaceMarket.totalCupCalc();
@@ -70,3 +71,11 @@ pikePlaceMarket.totalPndCalc();
 pikePlaceMarket.PndPerCup();
 pikePlaceMarket.netPndCalc();
 pikePlaceMarket.totalNetPndCalc();
+pikePlaceMarket.totalCustCalc();
+
+// Adding the Pike Place information to data.html
+var sectionEl = document.getElementsByTagName('section');
+console.log(sectionEl);
+var ulEl = document.createElement('ul');
+ulEl.textContent = pikePlaceMarket.name;
+sectionEl[0].appendChild(ulEl);
