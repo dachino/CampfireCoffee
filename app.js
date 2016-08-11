@@ -8,27 +8,52 @@ var pikePlaceMarket = {
   avgPnd: 0.34,
   numCustHr: [],  //Number of customers for each hour
   numCupHr: [],  //Projected cups sold for each hour
-  numPndHr: []  //Projected pounds sold for each hour
+  numPndHr: [],  //Projected pounds to-go sold for each hour
+  numPndPerCup: [], //Projected pounds of beans used for cup for each hour
+  totalCup: 0,  //Total cup sold
+  totalPnd: 0,  //Total pounds to-go sold
+  totalNetPnd: 0,  //Total pounds of beans sold altogether
+  randomCustHr: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
+    }
+  },
+  randomCustHr: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
+    }
+  },
+  cupHr: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numCupHr[i] = this.numCustHr[i] * this.avgCup;
+    }
+  },
+  totalCupCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.totalCup += this.numCupHr[i];
+    }
+  },
+  pndHr: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numPndHr[i] = this.numCustHr[i] * this.avgPnd;
+    }
+  },
+  totalPndCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.totalPnd += this.numPndHr[i];
+    }
+  },
+  PndPerCup: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numPndPerCup[i] = this.numCupHr[i] / 16;
+    }
+  },
 }
 
-function randomCustHr(store) {
-  for (var i = 0; i < hours.length; i++) {
-    store.numCustHr[i] = Math.floor(Math.random() * (store.maxCustRate - store.minCustRate) + store.minCustRate);
-  }
-}
 
-function cupHr(store) {
-  for (var i = 0; i < hours.length; i++) {
-    store.numCupHr[i] = store.numCustHr[i] * store.avgCup;
-  }
-}
-
-function pndHr(store) {
-  for (var i = 0; i < hours.length; i++) {
-    store.numPndHr[i] = store.numCustHr[i] * store.avgPnd;
-  }
-}
-
-randomCustHr(pikePlaceMarket);
-cupHr(pikePlaceMarket);
-pndHr(pikePlaceMarket);
+pikePlaceMarket.randomCustHr();
+pikePlaceMarket.cupHr();
+pikePlaceMarket.totalCupCalc();
+pikePlaceMarket.pndHr();
+pikePlaceMarket.totalPndCalc();
+pikePlaceMarket.PndPerCup();
