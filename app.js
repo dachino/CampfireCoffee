@@ -16,6 +16,8 @@ var pikePlaceMarket = {
   totalNetPnd: 0,  //Total pounds of beans sold altogether for the day
   totalCust: 0, //Total number of customers for the day
   numEmp: [],  //Number of employees needed for each hour
+  ulEl: document.getElementById('pikePlace'),
+
   randomCustHr: function() {
     for (var i = 0; i < hours.length; i++) {
       this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
@@ -29,8 +31,8 @@ var pikePlaceMarket = {
   totalCupCalc: function() {
     for (var i = 0; i < hours.length; i++) {
       this.totalCup += this.numCupHr[i];
-      this.totalCup = parseFloat(this.totalCup.toFixed(2));
     }
+    this.totalCup = parseFloat(this.totalCup.toFixed(2));
   },
   pndHr: function() {
     for (var i = 0; i < hours.length; i++) {
@@ -40,8 +42,8 @@ var pikePlaceMarket = {
   totalPndCalc: function() {
     for (var i = 0; i < hours.length; i++) {
       this.totalPnd += this.numPndHr[i];
-      this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
     }
+    this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
   },
   PndPerCup: function() {
     for (var i = 0; i < hours.length; i++) {
@@ -56,8 +58,8 @@ var pikePlaceMarket = {
   totalNetPndCalc: function() {
     for (var i = 0; i < hours.length; i++) {
       this.totalNetPnd += this.netPnd[i];
-      this.totalNetPnd = parseFloat(this.totalNetPnd.toFixed(2));
     }
+    this.totalNetPnd = parseFloat(this.totalNetPnd.toFixed(2));
   },
   totalCustCalc: function() {
     for (var i = 0; i < hours.length; i++) {
@@ -72,27 +74,28 @@ var pikePlaceMarket = {
         this.numEmp[i] = 1;
       }
     }
+  },
+  render: function() {
+    // Calling out all the methods for Pike Place Market object
+    this.randomCustHr();
+    this.cupHr();
+    this.totalCupCalc();
+    this.pndHr();
+    this.totalPndCalc();
+    this.PndPerCup();
+    this.netPndCalc();
+    this.totalNetPndCalc();
+    this.totalCustCalc();
+    this.numEmpCalc();
+    console.log("Number of employees needed for each hour:",this.numEmp);
+
+    // Adding the Pike Place information to data.html
+    var liEl = [];
+    for (var i = 0; i < hours.length; i++) {
+      liEl[i] = document.createElement('li');
+      liEl[i].textContent = hours[i] + ': ' + this.netPnd[i] + 'lbs [' + this.numCustHr[i] + ' customers, ' + this.numCupHr[i] + ' cups (' + this.numPndPerCup[i] + ' lbs), ' + this.numPndHr[i] + ' lbs to-go]';
+      this.ulEl.appendChild(liEl[i]);
+    }
   }
 }
-
-// Calling out all the methods for Pike Place Market object
-pikePlaceMarket.randomCustHr();
-pikePlaceMarket.cupHr();
-pikePlaceMarket.totalCupCalc();
-pikePlaceMarket.pndHr();
-pikePlaceMarket.totalPndCalc();
-pikePlaceMarket.PndPerCup();
-pikePlaceMarket.netPndCalc();
-pikePlaceMarket.totalNetPndCalc();
-pikePlaceMarket.totalCustCalc();
-pikePlaceMarket.numEmpCalc();
-console.log("Number of employees needed for each hour:",pikePlaceMarket.numEmp);
-
-// Adding the Pike Place information to data.html
-var ulEl = document.getElementsByTagName('ul');
-var ilEl =[];
-for (var i = 0; i < hours.length; i++) {
-  ilEl[i] = document.createElement('li');
-  ilEl[i].textContent = hours[i] + ': ' + pikePlaceMarket.netPnd[i] + 'lbs [' + pikePlaceMarket.numCustHr[i] + ' customers, ' + pikePlaceMarket.numCupHr[i] + ' cups (' + pikePlaceMarket.numPndPerCup[i] + ' lbs), ' + pikePlaceMarket.numPndHr[i] + ' lbs to-go]';
-  ulEl[0].appendChild(ilEl[i]);
-}
+pikePlaceMarket.render();
