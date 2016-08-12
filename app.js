@@ -68,11 +68,7 @@ var pikePlaceMarket = {
   },
   numEmpCalc: function() {
     for (var i = 0; i < hours.length; i++) {
-      if ((this.numCustHr[i] / 30) >= 1) {
-        this.numEmp[i] = 2;
-      } else {
-        this.numEmp[i] = 1;
-      }
+      this.numEmp[i] = Math.ceil(this.numCustHr[i] / 30)
     }
   },
   render: function() {
