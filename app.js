@@ -435,3 +435,112 @@ var southLakeUnion = {
   }
 }
 southLakeUnion.render();
+
+
+var seaTacAirport = {
+  name: "Sea-Tac Airport",
+  minCustRate: 28,
+  maxCustRate: 44,
+  avgCup: 1.1,
+  avgPnd: 0.41,
+  numCustHr: [],  //Number of customers for each hour
+  numCupHr: [],  //Projected cups sold for each hour
+  numPndHr: [],  //Projected pounds to-go sold for each hour
+  numPndPerCup: [], //Projected pounds of beans used for cup for each hour
+  netPnd: [],   //Projected pounds of beans used for both for each hour
+  totalCup: 0,  //Total cup sold for the day
+  totalPnd: 0,  //Total pounds to-go sold for the day
+  totalNetPnd: 0,  //Total pounds of beans sold altogether for the day
+  totalCust: 0, //Total number of customers for the day
+  numEmp: [],  //Number of employees needed for each hour
+  ulEl: document.getElementById('seaTacAirport'),
+
+  randomCustHr: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
+    }
+  },
+  cupHr: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numCupHr[i] = parseFloat((this.numCustHr[i] * this.avgCup).toFixed(2));
+    }
+  },
+  totalCupCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.totalCup += this.numCupHr[i];
+    }
+    this.totalCup = parseFloat(this.totalCup.toFixed(2));
+  },
+  pndHr: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numPndHr[i] = parseFloat((this.numCustHr[i] * this.avgPnd).toFixed(2));
+    }
+  },
+  totalPndCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.totalPnd += this.numPndHr[i];
+    }
+    this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
+  },
+  PndPerCup: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numPndPerCup[i] = parseFloat((this.numCupHr[i] / 16).toFixed(2));
+    }
+  },
+  netPndCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.netPnd[i] = parseFloat((this.numPndHr[i] + this.numPndPerCup[i]).toFixed(2));
+    }
+  },
+  totalNetPndCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.totalNetPnd += this.netPnd[i];
+    }
+    this.totalNetPnd = parseFloat(this.totalNetPnd.toFixed(2));
+  },
+  totalCustCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.totalCust += this.numCustHr[i];
+    }
+  },
+  numEmpCalc: function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numEmp[i] = Math.ceil(this.numCustHr[i] / 30)
+    }
+  },
+  render: function() {
+    // Calling out all the methods
+    this.randomCustHr();
+    this.cupHr();
+    this.totalCupCalc();
+    this.pndHr();
+    this.totalPndCalc();
+    this.PndPerCup();
+    this.netPndCalc();
+    this.totalNetPndCalc();
+    this.totalCustCalc();
+    this.numEmpCalc();
+    console.log("Number of employees needed at Sea-Tac Airport for each hour:",this.numEmp);
+
+    // Adding the Sea-Tac Airport information to data.html
+    var liEl = [];
+    for (var i = 0; i < hours.length; i++) {
+      liEl[i] = document.createElement('li');
+      liEl[i].textContent = hours[i] + ': ' + this.netPnd[i] + ' lbs [' + this.numCustHr[i] + ' customers, ' + this.numCupHr[i] + ' cups (' + this.numPndPerCup[i] + ' lbs), ' + this.numPndHr[i] + ' lbs to-go]';
+      this.ulEl.appendChild(liEl[i]);
+    }
+    liEl[15] = document.createElement('li');
+    liEl[15].textContent = 'Total customers at Sea-Tac Airport: ' + this.totalCust;
+    this.ulEl.appendChild(liEl[15]);
+    liEl[16] = document.createElement('li');
+    liEl[16].textContent = 'Total cups sold at Sea-Tac Airport: ' + this.totalCup;
+    this.ulEl.appendChild(liEl[16]);
+    liEl[17] = document.createElement('li');
+    liEl[17].textContent = 'Total to-go pound packages sold at Sea-Tac Airport: ' + this.totalPnd;
+    this.ulEl.appendChild(liEl[17]);
+    liEl[18] = document.createElement('li');
+    liEl[18].textContent = 'Total pounds of beans needed at Sea-Tac Airport: ' + this.totalNetPnd;
+    this.ulEl.appendChild(liEl[18]);
+  }
+}
+seaTacAirport.render();
