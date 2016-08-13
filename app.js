@@ -17,78 +17,34 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
   this.totalNetPnd = 0;  //Total pounds of beans sold altogether for the day
   this.totalCust = 0; //Total number of customers for the day
   this.ulEl = document.getElementById(this.name);
+  this.calculations = function() {
+    for (var i = 0; i < hours.length; i++) {
+      this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
+      this.totalCust += this.numCustHr[i];
+      this.numCupHr[i] = parseFloat((this.numCustHr[i] * this.avgCup).toFixed(2));
+      this.totalCup += this.numCupHr[i];
+      this.numPndHr[i] = parseFloat((this.numCustHr[i] * this.avgPnd).toFixed(2));
+      this.totalPnd += this.numPndHr[i];
+      this.numPndPerCup[i] = parseFloat((this.numCupHr[i] / 16).toFixed(2));
+      this.netPnd[i] = parseFloat((this.numPndHr[i] + this.numPndPerCup[i]).toFixed(2));
+      this.totalNetPnd += this.netPnd[i];
+      this.numEmp[i] = Math.ceil(this.numCustHr[i] / 30)
+    }
+    this.totalCup = parseFloat(this.totalCup.toFixed(2));
+    this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
+    this.totalNetPnd = parseFloat(this.totalNetPnd.toFixed(2));
+    console.log("Number of employees needed at Pike Place Market for each hour:",this.numEmp);
+  }
 }
 
 var pikePlaceMarket = new CoffeeShop("Pike Place Market", 14, 35, 1.2, 0.34);
+pikePlaceMarket.calculations();
 
 // var pikePlaceMarket = {
 //
-//   randomCustHr: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
-//     }
-//   },
-//   cupHr: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.numCupHr[i] = parseFloat((this.numCustHr[i] * this.avgCup).toFixed(2));
-//     }
-//   },
-//   totalCupCalc: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.totalCup += this.numCupHr[i];
-//     }
-//     this.totalCup = parseFloat(this.totalCup.toFixed(2));
-//   },
-//   pndHr: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.numPndHr[i] = parseFloat((this.numCustHr[i] * this.avgPnd).toFixed(2));
-//     }
-//   },
-//   totalPndCalc: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.totalPnd += this.numPndHr[i];
-//     }
-//     this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
-//   },
-//   PndPerCup: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.numPndPerCup[i] = parseFloat((this.numCupHr[i] / 16).toFixed(2));
-//     }
-//   },
-//   netPndCalc: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.netPnd[i] = parseFloat((this.numPndHr[i] + this.numPndPerCup[i]).toFixed(2));
-//     }
-//   },
-//   totalNetPndCalc: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.totalNetPnd += this.netPnd[i];
-//     }
-//     this.totalNetPnd = parseFloat(this.totalNetPnd.toFixed(2));
-//   },
-//   totalCustCalc: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.totalCust += this.numCustHr[i];
-//     }
-//   },
-//   numEmpCalc: function() {
-//     for (var i = 0; i < hours.length; i++) {
-//       this.numEmp[i] = Math.ceil(this.numCustHr[i] / 30)
-//     }
-//   },
+//
 //   render: function() {
-//     // Calling out all the methods
-//     this.randomCustHr();
-//     this.cupHr();
-//     this.totalCupCalc();
-//     this.pndHr();
-//     this.totalPndCalc();
-//     this.PndPerCup();
-//     this.netPndCalc();
-//     this.totalNetPndCalc();
-//     this.totalCustCalc();
-//     this.numEmpCalc();
-//     console.log("Number of employees needed at Pike Place Market for each hour:",this.numEmp);
+//
 //
 //     // Adding the Pike Place information to data.html
 //     var liEl = [];
