@@ -1,4 +1,5 @@
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var coffeeShop = [];  //Array for storing the coffee shop objects
 
 function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
   this.name = name;
@@ -40,7 +41,7 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
 
   // Outputting the shop information to data.html
   this.render = function() {
-    console.log("Number of employees needed at Pike Place Market for each hour:",this.numEmp);
+    console.log("Number of employees needed at " + this.name + " for each hour:",this.numEmp);
     for (var i = 0; i < hours.length; i++) {
       this.liEl[i] = document.createElement('li');
       this.liEl[i].textContent = hours[i] + ': ' + this.netPnd[i] + ' lbs [' + this.numCustHr[i] + ' customers, ' + this.numCupHr[i] + ' cups (' + this.numPndPerCup[i] + ' lbs), ' + this.numPndHr[i] + ' lbs to-go]';
@@ -61,7 +62,14 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
   };
 }
 
+//Creating the coffee shop objects
+coffeeShop[0] = new CoffeeShop("Pike Place Market", 14, 35, 1.2, 0.34);
+coffeeShop[1] = new CoffeeShop("Capitol Hill", 12, 28, 3.2, 0.03);
+coffeeShop[2] = new CoffeeShop("Seattle Public Library", 9, 45, 2.6, 0.02);
+coffeeShop[3] = new CoffeeShop("South Lake Union", 5, 18, 1.3, 0.04);
+coffeeShop[4] = new CoffeeShop("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 
-var pikePlaceMarket = new CoffeeShop("Pike Place Market", 14, 35, 1.2, 0.34);
-pikePlaceMarket.calculations();
-pikePlaceMarket.render();
+for (var i = 0; i < coffeeShop.length; i++) {
+  coffeeShop[i].calculations();
+  coffeeShop[i].render();
+}
