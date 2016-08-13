@@ -76,6 +76,28 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
   }
 };
 
+//Function that will create the Totals row for the beans table
+function tableTotal() {
+  var trEl = document.createElement('tr');
+  var tdEl = [];
+  tdEl[0] = document.createElement('td');
+  tdEl[0].textContent = "Totals";
+  tdEl[1] = document.createElement('td');
+  tdEl[1].textContent = parseFloat((coffeeShop[0].totalNetPnd + coffeeShop[1].totalNetPnd + coffeeShop[2].totalNetPnd + coffeeShop[3].totalNetPnd + coffeeShop[4].totalNetPnd).toFixed(2));
+  trEl.appendChild(tdEl[0]);
+  trEl.appendChild(tdEl[1]);
+  for (var i = 0; i < hours.length; i++) {
+    tdEl[i + 2] = document.createElement('td');
+    var hourlyTotals = 0;
+    for (var j = 0; j < coffeeShop.length; j++) {
+      hourlyTotals += coffeeShop[j].netPnd[i];
+    }
+    tdEl[i + 2].textContent = parseFloat(hourlyTotals.toFixed(2));
+    trEl.appendChild(tdEl[i + 2]);
+  }
+  tableEl.appendChild(trEl);
+}
+
 
 //Creating the coffee shop objects and creating the table of information
 tableHeader();
@@ -84,8 +106,8 @@ coffeeShop[1] = new CoffeeShop("Capitol Hill", 12, 28, 3.2, 0.03);
 coffeeShop[2] = new CoffeeShop("Seattle Public Library", 9, 45, 2.6, 0.02);
 coffeeShop[3] = new CoffeeShop("South Lake Union", 5, 18, 1.3, 0.04);
 coffeeShop[4] = new CoffeeShop("Sea-Tac Airport", 28, 44, 1.1, 0.41);
-
 for (var i = 0; i < coffeeShop.length; i++) {
   coffeeShop[i].calculations();
   coffeeShop[i].render();
 }
+tableTotal();
