@@ -59,7 +59,7 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
       this.numPndPerCup[i] = parseFloat((this.numCupHr[i] / 16).toFixed(2));
       this.netPnd[i] = parseFloat((this.numPndHr[i] + this.numPndPerCup[i]).toFixed(2));
       this.totalNetPnd += this.netPnd[i];
-      this.numEmp[i] = Math.ceil(this.numCustHr[i] / 30)
+      this.numEmp[i] = Math.ceil((this.numCupHr[i] + this.numPndHr[i])/ 30);
     }
     this.totalCup = parseFloat(this.totalCup.toFixed(2));
     this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
@@ -87,7 +87,7 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
       tdEl[1].textContent = "Emp hours";
       trEl.appendChild(tdEl[1]);
       for (var i = 0; i < hours.length; i++) {
-        tdEl[i + 2].textContent = "test";
+        tdEl[i + 2].textContent = this.numEmp[i];
         trEl.appendChild(tdEl[i + 2]);
       }
       baristasTableEl.appendChild(trEl);
