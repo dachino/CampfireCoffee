@@ -17,8 +17,10 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
   this.totalPnd = 0;  //Total pounds to-go sold for the day
   this.totalNetPnd = 0;  //Total pounds of beans sold altogether for the day
   this.totalCust = 0; //Total number of customers for the day
-  this.ulEl = document.getElementById(this.name);
-  this.liEl = [];
+  this.tableEl = document.getElementById("beans");
+  this.trEl = [];
+  this.thEl = [];
+  this.tdEl = [];
 
   // Calculate all the necessary data to output
   this.calculations = function() {
@@ -41,24 +43,15 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
 
   // Outputting the shop information to data.html
   this.render = function() {
-    console.log("Number of employees needed at " + this.name + " for each hour:",this.numEmp);
-    for (var i = 0; i < hours.length; i++) {
-      this.liEl[i] = document.createElement('li');
-      this.liEl[i].textContent = hours[i] + ': ' + this.netPnd[i] + ' lbs [' + this.numCustHr[i] + ' customers, ' + this.numCupHr[i] + ' cups (' + this.numPndPerCup[i] + ' lbs), ' + this.numPndHr[i] + ' lbs to-go]';
-      this.ulEl.appendChild(this.liEl[i]);
+    for (var i = 0; i < coffeeShop.length + 2; i++) {
+      this.trEl[i] = document.createElement('tr');
+        for (var j = 0; j < hours.length + 2; j++) {
+          this.tdEl[j] = document.createElement('td');
+          this.tdEl[j].textContent = "test";
+          this.trEl[i].appendChild(this.tdEl[j]);
+        }
+      this.tableEl.appendChild(this.trEl[i]);
     }
-    this.liEl[15] = document.createElement('li');
-    this.liEl[15].textContent = 'Total customers at Pike Place Market: ' + this.totalCust;
-    this.ulEl.appendChild(this.liEl[15]);
-    this.liEl[16] = document.createElement('li');
-    this.liEl[16].textContent = 'Total cups sold at Pike Place Market: ' + this.totalCup;
-    this.ulEl.appendChild(this.liEl[16]);
-    this.liEl[17] = document.createElement('li');
-    this.liEl[17].textContent = 'Total to-go pound packages sold at Pike Place Market: ' + this.totalPnd;
-    this.ulEl.appendChild(this.liEl[17]);
-    this.liEl[18] = document.createElement('li');
-    this.liEl[18].textContent = 'Total pounds of beans needed at Pike Place Market: ' + this.totalNetPnd;
-    this.ulEl.appendChild(this.liEl[18]);
   };
 }
 
