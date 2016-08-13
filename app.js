@@ -13,7 +13,7 @@ function tableHeader(tableName) {
   if (tableName === beans) {
     thEl[1].textContent = "Daily Location Totals";
   } else {
-    thEl[1].textContent = "Total";
+    thEl[1].textContent = "Total Employee Hours";
   }
   trEl.appendChild(thEl[0]);
   trEl.appendChild(thEl[1]);
@@ -46,6 +46,7 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
   this.totalPnd = 0;  //Total pounds to-go sold for the day
   this.totalNetPnd = 0;  //Total pounds of beans sold altogether for the day
   this.totalCust = 0; //Total number of customers for the day
+  this.totalEmpHrs = 0; //Total number of employee hours for the day
 
   //Method to calculate the necessary data to output
   this.calculations = function() {
@@ -60,6 +61,7 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
       this.netPnd[i] = parseFloat((this.numPndHr[i] + this.numPndPerCup[i]).toFixed(2));
       this.totalNetPnd += this.netPnd[i];
       this.numEmp[i] = Math.ceil((this.numCupHr[i] + this.numPndHr[i])/ 30);
+      this.totalEmpHrs += this.numEmp[i];
     }
     this.totalCup = parseFloat(this.totalCup.toFixed(2));
     this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
@@ -84,7 +86,7 @@ function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
       }
       beansTableEl.appendChild(trEl);
     } else {
-      tdEl[1].textContent = "Emp hours";
+      tdEl[1].textContent = this.totalEmpHrs;
       trEl.appendChild(tdEl[1]);
       for (var i = 0; i < hours.length; i++) {
         tdEl[i + 2].textContent = this.numEmp[i];
