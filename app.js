@@ -48,7 +48,9 @@ function tableHeader(tableName) {
   var trEl = document.createElement('tr');
   var thEl = [];
   thEl[0] = document.createElement('th');
+  thEl[0].classList.add("firstCol");
   thEl[1] = document.createElement('th');
+  thEl[1].classList.add("secondCol");
   thEl[0].textContent = "Locations";
   if (tableName === beans) {
     thEl[1].textContent = "Daily Location Totals";
