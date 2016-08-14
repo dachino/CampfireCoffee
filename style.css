@@ -1,3 +1,33 @@
-table, th, td {
+body {
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+table {
+  width: 950px;
+  border: 3px solid black;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.7)
+}
+
+th {
+  background-color: rgba(178, 207, 215, 0.7);
   border: 1px solid black;
+  padding: 1px 5px;
+}
+
+td {
+  border: 1px solid black;
+  padding: 5px 5px;
+}
+
+tr:hover td {
+  background-color: rgba(223, 235, 241, 0.7);
+}
+
+footer {
+  text-align: center;
+  font-size: 16px;
 }
