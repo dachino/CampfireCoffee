@@ -3,6 +3,46 @@ var coffeeShop = [];  //Array for storing the coffee shop objects
 var beansTableEl = document.getElementById("beans");
 var baristasTableEl = document.getElementById("baristas");
 
+//Constructor function to create coffee shop objects
+function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
+  this.name = name;
+  this.minCustRate = minCustRate;
+  this.maxCustRate = maxCustRate;
+  this.avgCup = avgCup;
+  this.avgPnd = avgPnd;
+  this.numCustHr = [];  //Number of customers for each hour
+  this.numCupHr = [];  //Projected cups sold for each hour
+  this.numPndHr = [];  //Projected pounds to-go sold for each hour
+  this.numPndPerCup = []; //Projected pounds of beans used for cup for each hour
+  this.netPnd = [];   //Projected pounds of beans used for both for each hour
+  this.numEmp = [];  //Number of employees needed for each hour
+  this.totalCup = 0;  //Total cup sold for the day
+  this.totalPnd = 0;  //Total pounds to-go sold for the day
+  this.totalNetPnd = 0;  //Total pounds of beans sold altogether for the day
+  this.totalCust = 0; //Total number of customers for the day
+  this.totalEmpHrs = 0; //Total number of employee hours for the day
+};
+
+//Prototype method to calculate the necessary data to output
+CoffeeShop.prototype.calculations = function() {
+  for (var i = 0; i < hours.length; i++) {
+    this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
+    this.totalCust += this.numCustHr[i];
+    this.numCupHr[i] = parseFloat((this.numCustHr[i] * this.avgCup).toFixed(2));
+    this.totalCup += this.numCupHr[i];
+    this.numPndHr[i] = parseFloat((this.numCustHr[i] * this.avgPnd).toFixed(2));
+    this.totalPnd += this.numPndHr[i];
+    this.numPndPerCup[i] = parseFloat((this.numCupHr[i] / 16).toFixed(2));
+    this.netPnd[i] = parseFloat((this.numPndHr[i] + this.numPndPerCup[i]).toFixed(2));
+    this.totalNetPnd += this.netPnd[i];
+    this.numEmp[i] = Math.ceil((this.numCupHr[i] + this.numPndHr[i])/ 30);
+    this.totalEmpHrs += this.numEmp[i];
+  }
+  this.totalCup = parseFloat(this.totalCup.toFixed(2));
+  this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
+  this.totalNetPnd = parseFloat(this.totalNetPnd.toFixed(2));
+};
+
 //Function that will create the table header
 function tableHeader(tableName) {
   var trEl = document.createElement('tr');
@@ -29,73 +69,33 @@ function tableHeader(tableName) {
   }
 }
 
-//Constructor Function to create coffee shop objects
-function CoffeeShop(name, minCustRate, maxCustRate, avgCup, avgPnd) {
-  this.name = name;
-  this.minCustRate = minCustRate;
-  this.maxCustRate = maxCustRate;
-  this.avgCup = avgCup;
-  this.avgPnd = avgPnd;
-  this.numCustHr = [];  //Number of customers for each hour
-  this.numCupHr = [];  //Projected cups sold for each hour
-  this.numPndHr = [];  //Projected pounds to-go sold for each hour
-  this.numPndPerCup = []; //Projected pounds of beans used for cup for each hour
-  this.netPnd = [];   //Projected pounds of beans used for both for each hour
-  this.numEmp = [];  //Number of employees needed for each hour
-  this.totalCup = 0;  //Total cup sold for the day
-  this.totalPnd = 0;  //Total pounds to-go sold for the day
-  this.totalNetPnd = 0;  //Total pounds of beans sold altogether for the day
-  this.totalCust = 0; //Total number of customers for the day
-  this.totalEmpHrs = 0; //Total number of employee hours for the day
-
-  //Method to calculate the necessary data to output
-  this.calculations = function() {
-    for (var i = 0; i < hours.length; i++) {
-      this.numCustHr[i] = Math.floor(Math.random() * (this.maxCustRate - this.minCustRate) + this.minCustRate);
-      this.totalCust += this.numCustHr[i];
-      this.numCupHr[i] = parseFloat((this.numCustHr[i] * this.avgCup).toFixed(2));
-      this.totalCup += this.numCupHr[i];
-      this.numPndHr[i] = parseFloat((this.numCustHr[i] * this.avgPnd).toFixed(2));
-      this.totalPnd += this.numPndHr[i];
-      this.numPndPerCup[i] = parseFloat((this.numCupHr[i] / 16).toFixed(2));
-      this.netPnd[i] = parseFloat((this.numPndHr[i] + this.numPndPerCup[i]).toFixed(2));
-      this.totalNetPnd += this.netPnd[i];
-      this.numEmp[i] = Math.ceil((this.numCupHr[i] + this.numPndHr[i])/ 30);
-      this.totalEmpHrs += this.numEmp[i];
-    }
-    this.totalCup = parseFloat(this.totalCup.toFixed(2));
-    this.totalPnd = parseFloat(this.totalPnd.toFixed(2));
-    this.totalNetPnd = parseFloat(this.totalNetPnd.toFixed(2));
-  };
-
-  //Method to output the shop information to data.html
-  this.render = function(tableName) {
-    var trEl = document.createElement('tr');
-    var tdEl = [];
-    for (var i = 0; i < hours.length + 2; i++) {
-      tdEl[i] = document.createElement('td');
-    }
-    tdEl[0].textContent = this.name;
-    trEl.appendChild(tdEl[0]);
-    if (tableName === beans) {
-      tdEl[1].textContent = this.totalNetPnd;
-      trEl.appendChild(tdEl[1]);
-      for (var i = 0; i < hours.length; i++) {
-        tdEl[i + 2].textContent = this.netPnd[i];
-        trEl.appendChild(tdEl[i + 2]);
-      }
-      beansTableEl.appendChild(trEl);
-    } else {
-      tdEl[1].textContent = this.totalEmpHrs;
-      trEl.appendChild(tdEl[1]);
-      for (var i = 0; i < hours.length; i++) {
-        tdEl[i + 2].textContent = this.numEmp[i];
-        trEl.appendChild(tdEl[i + 2]);
-      }
-      baristasTableEl.appendChild(trEl);
-    }
+//Prototype method to output the shop information to data.html
+CoffeeShop.prototype.render = function(tableName) {
+  var trEl = document.createElement('tr');
+  var tdEl = [];
+  for (var i = 0; i < hours.length + 2; i++) {
+    tdEl[i] = document.createElement('td');
   }
-};
+  tdEl[0].textContent = this.name;
+  trEl.appendChild(tdEl[0]);
+  if (tableName === beans) {
+    tdEl[1].textContent = this.totalNetPnd;
+    trEl.appendChild(tdEl[1]);
+    for (var i = 0; i < hours.length; i++) {
+      tdEl[i + 2].textContent = this.netPnd[i];
+      trEl.appendChild(tdEl[i + 2]);
+    }
+    beansTableEl.appendChild(trEl);
+  } else {
+    tdEl[1].textContent = this.totalEmpHrs;
+    trEl.appendChild(tdEl[1]);
+    for (var i = 0; i < hours.length; i++) {
+      tdEl[i + 2].textContent = this.numEmp[i];
+      trEl.appendChild(tdEl[i + 2]);
+    }
+    baristasTableEl.appendChild(trEl);
+  }
+}
 
 //Function that will create a totals row
 function tableTotal(tableName) {
