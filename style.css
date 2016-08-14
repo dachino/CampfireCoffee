@@ -11,6 +11,7 @@ body h1{
 
 table {
   width: 950px;
+  table-layout: fixed;
   border: 3px solid black;
   border-collapse: collapse;
   background-color: rgba(255, 255, 255, 0.7);
@@ -24,7 +25,15 @@ th {
 
 td {
   border: 1px solid black;
-  padding: 5px 5px;
+  padding: 3px 5px;
+}
+
+.firstCol {
+  width: 90px;
+}
+
+.secondCol {
+  width: 110px;
 }
 
 tr:hover td {
