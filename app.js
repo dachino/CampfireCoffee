@@ -1,5 +1,5 @@
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
-var coffeeShop = [];  //Array for storing the coffee shop objects
+var allCoffeeShops = [];  //Array for storing the coffee shop objects
 var beansTableEl = document.getElementById("beans");
 var baristasTableEl = document.getElementById("baristas");
 
@@ -108,26 +108,26 @@ function tableTotal(tableName) {
   trEl.appendChild(tdEl[0]);
   tdEl[1] = document.createElement('td');
   if (tableName === beans) {
-    tdEl[1].textContent = parseFloat((coffeeShop[0].totalNetPnd + coffeeShop[1].totalNetPnd + coffeeShop[2].totalNetPnd + coffeeShop[3].totalNetPnd + coffeeShop[4].totalNetPnd).toFixed(2));
+    tdEl[1].textContent = parseFloat((allCoffeeShops[0].totalNetPnd + allCoffeeShops[1].totalNetPnd + allCoffeeShops[2].totalNetPnd + allCoffeeShops[3].totalNetPnd + allCoffeeShops[4].totalNetPnd).toFixed(2));
     trEl.appendChild(tdEl[1]);
     for (var i = 0; i < hours.length; i++) {
       tdEl[i + 2] = document.createElement('td');
       var hourlyTotals = 0;
-      for (var j = 0; j < coffeeShop.length; j++) {
-        hourlyTotals += coffeeShop[j].netPnd[i];
+      for (var j = 0; j < allCoffeeShops.length; j++) {
+        hourlyTotals += allCoffeeShops[j].netPnd[i];
       }
       tdEl[i + 2].textContent = parseFloat(hourlyTotals.toFixed(2));
       trEl.appendChild(tdEl[i + 2]);
     }
     beansTableEl.appendChild(trEl);
   } else {
-    tdEl[1].textContent = parseFloat((coffeeShop[0].totalEmpHrs + coffeeShop[1].totalEmpHrs + coffeeShop[2].totalEmpHrs + coffeeShop[3].totalEmpHrs + coffeeShop[4].totalEmpHrs).toFixed(2));
+    tdEl[1].textContent = parseFloat((allCoffeeShops[0].totalEmpHrs + allCoffeeShops[1].totalEmpHrs + allCoffeeShops[2].totalEmpHrs + allCoffeeShops[3].totalEmpHrs + allCoffeeShops[4].totalEmpHrs).toFixed(2));
     trEl.appendChild(tdEl[1]);
     for (var i = 0; i < hours.length; i++) {
       tdEl[i + 2] = document.createElement('td');
       var hourlyTotals = 0;
-      for (var j = 0; j < coffeeShop.length; j++) {
-        hourlyTotals += coffeeShop[j].numEmp[i];
+      for (var j = 0; j < allCoffeeShops.length; j++) {
+        hourlyTotals += allCoffeeShops[j].numEmp[i];
       }
       tdEl[i + 2].textContent = parseFloat(hourlyTotals.toFixed(2));
       trEl.appendChild(tdEl[i + 2]);
@@ -138,18 +138,18 @@ function tableTotal(tableName) {
 
 
 //Creating the coffee shop objects and creating the table of information
-coffeeShop[0] = new CoffeeShop("Pike Place Market", 14, 35, 1.2, 0.34);
-coffeeShop[1] = new CoffeeShop("Capitol Hill", 12, 28, 3.2, 0.03);
-coffeeShop[2] = new CoffeeShop("Seattle Public Library", 9, 45, 2.6, 0.02);
-coffeeShop[3] = new CoffeeShop("South Lake Union", 5, 18, 1.3, 0.04);
-coffeeShop[4] = new CoffeeShop("Sea-Tac Airport", 28, 44, 1.1, 0.41);
+allCoffeeShops[0] = new CoffeeShop("Pike Place Market", 14, 35, 1.2, 0.34);
+allCoffeeShops[1] = new CoffeeShop("Capitol Hill", 12, 28, 3.2, 0.03);
+allCoffeeShops[2] = new CoffeeShop("Seattle Public Library", 9, 45, 2.6, 0.02);
+allCoffeeShops[3] = new CoffeeShop("South Lake Union", 5, 18, 1.3, 0.04);
+allCoffeeShops[4] = new CoffeeShop("Sea-Tac Airport", 28, 44, 1.1, 0.41);
 
 tableHeader(beans);
 tableHeader(baristas);
-for (var i = 0; i < coffeeShop.length; i++) {
-  coffeeShop[i].calculations();
-  coffeeShop[i].render(beans);
-  coffeeShop[i].render(baristas);
+for (var i = 0; i < allCoffeeShops.length; i++) {
+  allCoffeeShops[i].calculations();
+  allCoffeeShops[i].render(beans);
+  allCoffeeShops[i].render(baristas);
 }
 tableTotal(beans);
 tableTotal(baristas);
