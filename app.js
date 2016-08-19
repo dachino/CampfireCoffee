@@ -44,7 +44,7 @@ CoffeeShop.prototype.calculations = function() {
 };
 
 //Function that will create the table header
-function tableHeader(tableName) {
+function tableHeader(tableElement, secondColHeader) {
   var trEl = document.createElement('tr');
   var thEl = [];
   thEl[0] = document.createElement('th');
@@ -52,11 +52,7 @@ function tableHeader(tableName) {
   thEl[1] = document.createElement('th');
   thEl[1].classList.add('secondCol');
   thEl[0].textContent = 'Locations';
-  if (tableName === beans) {
-    thEl[1].textContent = 'Daily Location Totals';
-  } else {
-    thEl[1].textContent = 'Total Employee Hours';
-  }
+  thEl[1].textContent = secondColHeader;
   trEl.appendChild(thEl[0]);
   trEl.appendChild(thEl[1]);
   for (var i = 0; i < hours.length; i++) {
@@ -64,15 +60,11 @@ function tableHeader(tableName) {
     thEl[i + 2].textContent = hours[i];
     trEl.appendChild(thEl[i + 2]);
   }
-  if (tableName === beans) {
-    beansTableEl.appendChild(trEl);
-  } else {
-    baristasTableEl.appendChild(trEl);
-  }
+  tableElement.appendChild(trEl);
 }
 
 //Prototype method to output the shop information to data.html
-CoffeeShop.prototype.render = function(tableName) {
+CoffeeShop.prototype.render = function(tableElement, totals, hourly) {
   var trEl = document.createElement('tr');
   var tdEl = [];
   for (var i = 0; i < hours.length + 2; i++) {
@@ -80,23 +72,13 @@ CoffeeShop.prototype.render = function(tableName) {
   }
   tdEl[0].textContent = this.name;
   trEl.appendChild(tdEl[0]);
-  if (tableName === beans) {
-    tdEl[1].textContent = this.totalNetPnd;
-    trEl.appendChild(tdEl[1]);
-    for (i = 0; i < hours.length; i++) {
-      tdEl[i + 2].textContent = this.netPnd[i];
-      trEl.appendChild(tdEl[i + 2]);
-    }
-    beansTableEl.appendChild(trEl);
-  } else {
-    tdEl[1].textContent = this.totalEmpHrs;
-    trEl.appendChild(tdEl[1]);
-    for (i = 0; i < hours.length; i++) {
-      tdEl[i + 2].textContent = this.numEmp[i];
-      trEl.appendChild(tdEl[i + 2]);
-    }
-    baristasTableEl.appendChild(trEl);
+  tdEl[1].textContent = totals;
+  trEl.appendChild(tdEl[1]);
+  for (i = 0; i < hours.length; i++) {
+    tdEl[i + 2].textContent = hourly[i];
+    trEl.appendChild(tdEl[i + 2]);
   }
+  tableElement.appendChild(trEl);
 };
 
 //Function that will create a totals row
@@ -144,30 +126,33 @@ allCoffeeShops[2] = new CoffeeShop('Seattle Public Library', 9, 45, 2.6, 0.02);
 allCoffeeShops[3] = new CoffeeShop('South Lake Union', 5, 18, 1.3, 0.04);
 allCoffeeShops[4] = new CoffeeShop('Sea-Tac Airport', 28, 44, 1.1, 0.41);
 
-tableHeader(beans);
-tableHeader(baristas);
+tableHeader(beansTableEl, 'Daily Location Totals');
+tableHeader(baristasTableEl, 'Total Employee Hours');
 for (var i = 0; i < allCoffeeShops.length; i++) {
   allCoffeeShops[i].calculations();
-  allCoffeeShops[i].render(beans);
-  allCoffeeShops[i].render(baristas);
+  allCoffeeShops[i].render(beansTableEl, allCoffeeShops[i].totalNetPnd, allCoffeeShops[i].netPnd);
+  allCoffeeShops[i].render(baristasTableEl, allCoffeeShops[i].totalEmpHrs, allCoffeeShops[i].numEmp);
 }
 tableTotal(beans);
 tableTotal(baristas);
 
 //Code for the Coffee Kiosk Form
-var kioskForm = document.getElementById('kioskForm');
+// var coffeeStoreForm = document.getElementById('coffeeStoreForm');
 
-function genNewCoffeeShop(event) {
-  event.preventDefault();
-  var newName = event.target.name.value;
-  var newMinCustRate = parseFloat(event.target.minCustRate.value);
-  var newMaxCustRate = parseFloat(event.target.maxCustRate.value);
-  var newAvgCup = parseFloat(event.target.avgCup.value);
-  var newAvgPnd = parseFloat(event.target.avgPnd.value);
-  allCoffeeShops.push(new CoffeeShop(newName, newMinCustRate, newMaxCustRate, newAvgCup, newAvgPnd));
-  allCoffeeShops[allCoffeeShops.length - 1].calculations();
-  allCoffeeShops[allCoffeeShops.length - 1].render(beans);
-  console.log(allCoffeeShops);
-}
+// function genNewCoffeeShop(event) {
+//   event.preventDefault();
+//   var newName = event.target.name.value;
+//   var newMinCustRate = parseFloat(event.target.minCustRate.value);
+//   var newMaxCustRate = parseFloat(event.target.maxCustRate.value);
+//   var newAvgCup = parseFloat(event.target.avgCup.value);
+//   var newAvgPnd = parseFloat(event.target.avgPnd.value);
+//   allCoffeeShops.push(new CoffeeShop(newName, newMinCustRate, newMaxCustRate, newAvgCup, newAvgPnd));
+//   allCoffeeShops[allCoffeeShops.length - 1].calculations();
+//   beansTableEl.removeChild(beansTableEl.lastChild);         //Removing the Totals row for the Beans Table
+//   baristasTableEl.removeChild(baristasTableEl.lastChild);   //Removing the Totals row for the Beans Table
+//   allCoffeeShops[allCoffeeShops.length - 1].render(beans);
+//   allCoffeeShops[allCoffeeShops.length - 1].render(baristas);
+//   console.log(allCoffeeShops);
+// }
 
-kioskForm.addEventListener('submit', genNewCoffeeShop);
+// coffeeStoreForm.addEventListener('submit', genNewCoffeeShop);
