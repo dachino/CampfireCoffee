@@ -154,9 +154,20 @@ for (var i = 0; i < allCoffeeShops.length; i++) {
 tableTotal(beans);
 tableTotal(baristas);
 
-//Submit button for Coffee Kiosk Form
+//Code for the Coffee Kiosk Form
 var kioskForm = document.getElementById('kioskForm');
-kioskForm.addEventListener('submit', function(event) {
+
+function genNewCoffeeShop(event) {
   event.preventDefault();
-  console.log(event.target);
-});
+  var newName = event.target.name.value;
+  var newMinCustRate = parseFloat(event.target.minCustRate.value);
+  var newMaxCustRate = parseFloat(event.target.maxCustRate.value);
+  var newAvgCup = parseFloat(event.target.avgCup.value);
+  var newAvgPnd = parseFloat(event.target.avgPnd.value);
+  allCoffeeShops.push(new CoffeeShop(newName, newMinCustRate, newMaxCustRate, newAvgCup, newAvgPnd));
+  allCoffeeShops[allCoffeeShops.length - 1].calculations();
+  allCoffeeShops[allCoffeeShops.length - 1].render(beans);
+  console.log(allCoffeeShops);
+}
+
+kioskForm.addEventListener('submit', genNewCoffeeShop);
