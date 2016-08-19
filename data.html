@@ -23,36 +23,36 @@
     <br>
     <br>
     <br>
-    <form class="kioskInfo" action="data.html" method="post" autocomplete="off">
+    <form id="kioskForm" autocomplete="off">
       <fieldset>
         <legend><strong>Coffee Kiosk Info:</strong></legend>
-        <label>
+        <label for="name">
           Store Location:
           <input type="text" name="name" size="30" maxlength="100">
         </label>
         <br>
-        <label>
+        <label for="minCustRate">
           Min Customers/Hr:
           <input type="text" name="minCustRate" size="5" maxlength="10">
         </label>
         <br>
-        <label>
+        <label for="maxCustRate">
           Max Customers/Hr:
           <input type="text" name="maxCustRate" size="5" maxlength="10">
         </label>
         <br>
-        <label>
+        <label for="avgCup">
           Avg Cups/Customers:
-          <input type="text" name="minCustRate" size="5" maxlength="10">
+          <input type="text" name="avgCup" size="5" maxlength="10">
         </label>
         <br>
-        <label>
+        <label for="avgPnd">
           Avg To-Go lbs/Customers:
-          <input type="text" name="maxCustRate" size="5" maxlength="10">
-        </label>
+          <input type="text" name="avgPnd" size="5" maxlength="10">
+        </label form="submit">
         <br>
         <br>
-        <input id="submit" type="submit" value="Submit"/>
+        <input id="submit" type="submit"/>
       </fieldset>
     </form>
   </section>

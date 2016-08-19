@@ -153,3 +153,10 @@ for (var i = 0; i < allCoffeeShops.length; i++) {
 }
 tableTotal(beans);
 tableTotal(baristas);
+
+//Submit button for Coffee Kiosk Form
+var kioskForm = document.getElementById('kioskForm');
+kioskForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  console.log(event.target);
+});
