@@ -87,6 +87,10 @@ CoffeeShop.prototype.render = function(tableElement, totals, hourly) {
 
 //Function to add up the totals for all the stores combined
 function totalCalc() {
+  dailyTotalBeans = 0;    //Reset values
+  dailyTotalEmp = 0;
+  hourlyTotalBeans = [];
+  hourlyTotalEmp = [];
   for (var i = 0; i < allCoffeeShops.length; i++) {
     dailyTotalBeans += allCoffeeShops[i].totalNetPnd;
     dailyTotalEmp += allCoffeeShops[i].totalEmpHrs;
@@ -108,6 +112,7 @@ function totalCalc() {
 //Function that will output the totals row onto data.html
 function renderTotal(tableElement, dailyTotal, hourlyTotal) {
   var trEl = document.createElement('tr');
+  trEl.classList.add('totalsRow');
   var tdEl = [];
   tdEl[0] = document.createElement('td');
   tdEl[0].textContent = 'Totals';
@@ -123,7 +128,7 @@ function renderTotal(tableElement, dailyTotal, hourlyTotal) {
   tableElement.appendChild(trEl);
 }
 
-//Creating the coffee shop objects and creating the table of information
+//Creating the coffee shop objects
 allCoffeeShops[0] = new CoffeeShop('Pike Place Market', 14, 35, 1.2, 0.34);
 allCoffeeShops[1] = new CoffeeShop('Capitol Hill', 12, 28, 3.2, 0.03);
 allCoffeeShops[2] = new CoffeeShop('Seattle Public Library', 9, 45, 2.6, 0.02);
@@ -132,32 +137,34 @@ allCoffeeShops[4] = new CoffeeShop('Sea-Tac Airport', 28, 44, 1.1, 0.41);
 
 renderTableHeader(beansTableEl, 'Daily Location Totals');
 renderTableHeader(baristasTableEl, 'Total Employee Hours');
-for (var i = 0; i < allCoffeeShops.length; i++) {
-  allCoffeeShops[i].calculations();
-  allCoffeeShops[i].render(beansTableEl, allCoffeeShops[i].totalNetPnd, allCoffeeShops[i].netPnd);
-  allCoffeeShops[i].render(baristasTableEl, allCoffeeShops[i].totalEmpHrs, allCoffeeShops[i].numEmp);
+
+//Master render function that will run the other render functions for table body and totals row
+function renderMaster (shopNum) {
+  for (i = shopNum; i < allCoffeeShops.length; i++) {
+    allCoffeeShops[i].calculations();
+    allCoffeeShops[i].render(beansTableEl, allCoffeeShops[i].totalNetPnd, allCoffeeShops[i].netPnd);
+    allCoffeeShops[i].render(baristasTableEl, allCoffeeShops[i].totalEmpHrs, allCoffeeShops[i].numEmp);
+  }
+  totalCalc();
+  renderTotal(beansTableEl, dailyTotalBeans, hourlyTotalBeans);
+  renderTotal(baristasTableEl, dailyTotalEmp, hourlyTotalEmp);
 }
-totalCalc();
-renderTotal(beansTableEl, dailyTotalBeans, hourlyTotalBeans);
-renderTotal(baristasTableEl, dailyTotalEmp, hourlyTotalEmp);
+renderMaster(0);
 
 //Code for the Coffee Kiosk Form
-// var coffeeStoreForm = document.getElementById('coffeeStoreForm');
+var coffeeStoreForm = document.getElementById('coffeeStoreForm');
 
-// function genNewCoffeeShop(event) {
-//   event.preventDefault();
-//   var newName = event.target.name.value;
-//   var newMinCustRate = parseFloat(event.target.minCustRate.value);
-//   var newMaxCustRate = parseFloat(event.target.maxCustRate.value);
-//   var newAvgCup = parseFloat(event.target.avgCup.value);
-//   var newAvgPnd = parseFloat(event.target.avgPnd.value);
-//   allCoffeeShops.push(new CoffeeShop(newName, newMinCustRate, newMaxCustRate, newAvgCup, newAvgPnd));
-//   allCoffeeShops[allCoffeeShops.length - 1].calculations();
-//   beansTableEl.removeChild(beansTableEl.lastChild);         //Removing the Totals row for the Beans Table
-//   baristasTableEl.removeChild(baristasTableEl.lastChild);   //Removing the Totals row for the Beans Table
-//   allCoffeeShops[allCoffeeShops.length - 1].render(beans);
-//   allCoffeeShops[allCoffeeShops.length - 1].render(baristas);
-//   console.log(allCoffeeShops);
-// }
+function genNewCoffeeShop(event) {
+  event.preventDefault();
+  var newName = event.target.name.value;
+  var newMinCustRate = parseFloat(event.target.minCustRate.value);
+  var newMaxCustRate = parseFloat(event.target.maxCustRate.value);
+  var newAvgCup = parseFloat(event.target.avgCup.value);
+  var newAvgPnd = parseFloat(event.target.avgPnd.value);
+  allCoffeeShops.push(new CoffeeShop(newName, newMinCustRate, newMaxCustRate, newAvgCup, newAvgPnd));
+  beansTableEl.removeChild(document.getElementsByClassName('totalsRow')[0]);    //Removes the Totals row
+  baristasTableEl.removeChild(document.getElementsByClassName('totalsRow')[0]);  //Removes the Totals row
+  renderMaster(allCoffeeShops.length - 1);      //Rerun the master render function
+}
 
-// coffeeStoreForm.addEventListener('submit', genNewCoffeeShop);
+coffeeStoreForm.addEventListener('submit', genNewCoffeeShop);
