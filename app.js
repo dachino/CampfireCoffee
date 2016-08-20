@@ -151,8 +151,8 @@ function renderMaster (shopNum) {
 }
 renderMaster(0);
 
-//Code for the Coffee Kiosk Form
-var coffeeStoreForm = document.getElementById('coffeeStoreForm');
+//Code for the Coffee Shop Form
+var coffeeShopForm = document.getElementById('coffeeShopForm');
 
 function genNewCoffeeShop(event) {
   event.preventDefault();
@@ -161,10 +161,16 @@ function genNewCoffeeShop(event) {
   var newMaxCustRate = parseFloat(event.target.maxCustRate.value);
   var newAvgCup = parseFloat(event.target.avgCup.value);
   var newAvgPnd = parseFloat(event.target.avgPnd.value);
+  if (!newName || !newMinCustRate || !newMaxCustRate || !newAvgCup || !newAvgPnd) {
+    alert('New coffee shop is not generated. Please input valid data for all the textbox.');
+    coffeeShopForm.reset();       //Reset the form
+    return;
+  }
   allCoffeeShops.push(new CoffeeShop(newName, newMinCustRate, newMaxCustRate, newAvgCup, newAvgPnd));
   beansTableEl.removeChild(document.getElementsByClassName('totalsRow')[0]);    //Removes the Totals row
   baristasTableEl.removeChild(document.getElementsByClassName('totalsRow')[0]);  //Removes the Totals row
   renderMaster(allCoffeeShops.length - 1);      //Rerun the master render function
+  coffeeShopForm.reset();
 }
 
-coffeeStoreForm.addEventListener('submit', genNewCoffeeShop);
+coffeeShopForm.addEventListener('submit', genNewCoffeeShop);
