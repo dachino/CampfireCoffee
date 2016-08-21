@@ -11,20 +11,50 @@
   </header>
   <br>
   <section>
+    <h3>Beans (lbs) Needed By Location Each Day:</h3>
     <table id="beans">
-      <h3>Beans (lbs) Needed By Location Each Day:</h3>
     </table>
     <br>
     <br>
+    <h3>Baristas Needed By Location Each Day:</h3>
     <table id="baristas">
-      <h3>Baristas Needed By Location Each Day:</h3>
     </table>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form id="coffeeShopForm" autocomplete="off">
+      <fieldset>
+        <legend><strong>New Coffee Shop Info:</strong></legend>
+        <label for="name">
+          Shop Location:
+          <input type="text" id="name" name="name" size="20" maxlength="30">
+        </label>
+        <label for="minCustRate">
+          Min Customers/Hr:
+          <input type="text" id="minCustRate" name="minCustRate" size="20" maxlength="20">
+        </label>
+        <label for="maxCustRate">
+          Max Customers/Hr:
+          <input type="text" id="maxCustRate" name="maxCustRate" size="20" maxlength="20">
+        </label>
+        <label for="avgCup">
+          Avg Cups/Customers:
+          <input type="text" id="avgCup" name="avgCup" size="20" maxlength="20">
+        </label>
+        <label for="avgPnd">
+          Avg To-Go lbs/Customers:
+          <input type="text" id="avgPnd" name="avgPnd" size="20" maxlength="20">
+        </label form="submit">
+        <input id="submit" type="submit"/>
+      </fieldset>
+    </form>
   </section>
   <footer>
     <br>
     <br>
     <p><em>Copyright &copy; 2016 Campfire Coffee. All Rights Reserved.</em></p>
   </footer>
-    <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="app.js"></script>
 </body>
 </html>
