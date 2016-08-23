@@ -86,3 +86,8 @@ footer {
   text-align: center;
   background-color: rgba(185, 160, 135, 0.8);
 }
+
+footer > a {
+  color: transparent;
+  float: right;
+}
