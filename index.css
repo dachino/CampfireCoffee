@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  background-image: url("http://andifurniture.com/wp-content/uploads/2015/09/rustic-barn-wood-background-wctoykziz.jpg");
+  background-image: url("images/wood-background.jpg");
   background-size: cover;
   background-attachment: fixed;
   margin: 0px;
@@ -13,7 +13,8 @@ body {
 header {
   height: 220px;
   width: 100%;
-  background-color: rgba(185, 160, 135, 0.8);
+  background-image:url("images/coffee-header.png");
+  color: white;
 }
 
 header > img {
@@ -31,36 +32,41 @@ header > h1 {
 
 header > h3 {
   margin-top: 0px;
+  text-indent: 20px;
 }
 
 nav {
-  width: 900px;
-  height: 30px;
+  height: 40px;
   margin-left: auto;
   margin-right: auto;
+  background-image: url("https://duckandwaffle.com/templates/default/en/images/top-bg.jpg");
+  box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.8);
 }
 
 nav > ul {
+  height: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
   padding-left: 0px;
+  margin: 0px;
 }
 
 li {
   list-style: none;
   font-family: serif;
   font-size: 22px;
-  border: 3px solid black;
   padding: 1px 5px;
-  background-color: rgba(213, 160, 43, 0.8);
 }
 
 main {
   width: 900px;
   margin-left: auto;
   margin-right: auto;
-  background-color: rgba(185, 160, 135, 0.8);
+  background-image: url("images/paper-texture.jpg");
+  background-size: cover;
+  box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.8);
   padding: 20px;
 }
 
