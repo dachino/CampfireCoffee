@@ -1,0 +1,167 @@
+html {
+  background-color: rgb(92, 57, 42);
+  min-width: 960px;
+  max-width: 1600px;
+}
+
+body {
+  background-image: url("images/wood-background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0px;
+}
+
+header {
+  height: 220px;
+  width: 100%;
+  background-image:url("images/coffee-header.png");
+  color: white;
+}
+
+header > img {
+  width: 400px;
+  display: inline-block;
+  float: left;
+}
+
+header > h1 {
+  display: inline-block;
+  font-family: 'Yatra One', cursive;
+  font-size: 70px;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+header > h3 {
+  margin-top: 0px;
+  text-indent: 20px;
+}
+
+nav {
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url("https://duckandwaffle.com/templates/default/en/images/top-bg.jpg");
+  box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.8);
+}
+
+nav > ul {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 0px;
+  margin: 0px;
+}
+
+li {
+  list-style: none;
+  font-family: 'Passion One', cursive;
+  font-size: 22px;
+  padding: 1px 5px;
+}
+
+li > a {
+  text-decoration:none;
+  color: black;
+}
+
+li:hover > a {
+  color: #c53530;
+}
+
+main {
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url("images/paper-texture.jpg");
+  background-size: cover;
+  box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 18px;
+}
+
+#mainImg {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+}
+
+#welcome {
+  margin-bottom: 40px;
+  text-indent: 50px;
+}
+
+#storeLocations, #aboutMe {
+  margin-bottom: 50px;
+}
+
+section > h3 {
+  font-size: 30px;
+  text-align: center;
+  clear: both;
+  margin-bottom: 50px;
+}
+
+#storeLocations > p {
+display: inline-block;
+margin-right: 100px;
+margin-left: 20px;
+vertical-align: top;
+}
+
+#storeLocations > iframe {
+  border: 0px;
+  width: 400px;
+  height: 250px;
+  display: inline-block;
+}
+
+#aboutMe > iframe {
+  border: 0px;
+  width: 800px;
+  height: 450px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  margin-top: 40px;
+  margin-bottom: 60px;
+}
+
+#other > img {
+  width: 30%;
+  height: 30%;
+  margin-bottom: 20px;
+}
+
+#other {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+footer {
+  margin-top: 50px;
+  text-align: center;
+  background-image: url("https://duckandwaffle.com/templates/default/en/images/top-bg.jpg");
+  background-size: cover;
+  height: 50px;
+  box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.8);
+}
+
+footer > p {
+  padding-top: 15px;
+}
+
+footer > a {
+  color: transparent;
+  float: right;
+}
