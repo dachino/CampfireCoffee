@@ -94,11 +94,11 @@ main {
   text-indent: 50px;
 }
 
-#storeLocations {
+#storeLocations, #aboutMe {
   margin-bottom: 50px;
 }
 
-#storeLocations > h3 {
+section > h3 {
   font-size: 30px;
   text-align: center;
   clear: both;
@@ -112,11 +112,20 @@ margin-left: 20px;
 vertical-align: top;
 }
 
-iframe {
+#storeLocations > iframe {
   border: 0px;
   width: 400px;
   height: 250px;
   display: inline-block;
+}
+
+#aboutMe > iframe {
+  border: 0px;
+  width: 800px;
+  height: 450px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 hr {
