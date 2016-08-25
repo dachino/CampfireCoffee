@@ -1,6 +1,7 @@
 html {
   background-color: rgb(92, 57, 42);
-  min-width: 800px;
+  min-width: 960px;
+  max-width: 1600px;
 }
 
 body {
@@ -18,13 +19,14 @@ header {
 }
 
 header > img {
-  width: 30%;
+  width: 400px;
   display: inline-block;
   float: left;
 }
 
 header > h1 {
   display: inline-block;
+  font-family: 'Yatra One', cursive;
   font-size: 70px;
   margin-bottom: 0px;
   text-align: center;
@@ -55,9 +57,18 @@ nav > ul {
 
 li {
   list-style: none;
-  font-family: serif;
+  font-family: 'Passion One', cursive;
   font-size: 22px;
   padding: 1px 5px;
+}
+
+li > a {
+    text-decoration:none;
+    color: black;
+}
+
+li:hover > a {
+    color: #c53530;
 }
 
 main {
@@ -74,11 +85,17 @@ main {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 50px;
+}
+
+#welcome {
+  margin-bottom: 40px;
 }
 
 #other > img {
   width: 30%;
   height: 30%;
+  margin-bottom: 20px;
 }
 
 #other {
@@ -90,7 +107,14 @@ main {
 footer {
   margin-top: 50px;
   text-align: center;
-  background-color: rgba(185, 160, 135, 0.8);
+  background-image: url("https://duckandwaffle.com/templates/default/en/images/top-bg.jpg");
+  background-size: cover;
+  height: 50px;
+  box-shadow: 3px 3px 10px 5px rgba(0, 0, 0, 0.8);
+}
+
+footer > p {
+  padding-top: 15px;
 }
 
 footer > a {
